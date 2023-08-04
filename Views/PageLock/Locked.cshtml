@@ -1,0 +1,24 @@
+﻿@section Styles {
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/PageLock.css")" />
+}
+
+<div class="index d-flex align-items-center justify-content-center w-100 mt-4 bg-transparent">
+    <div class="d-flex flex-column align-items-start shadow-sm px-5 py-3 mb-5 rounded bg-white">
+        <h2 class="mt-4 mb-5 pb-2 align-self-center">The Page is Locked</h2>
+        <p class="fw-bold mb-4">
+            The page is still being used by another user.
+        </p>
+        <p class="mb-0">Name :</p>
+        <p class="mb-4"><b>@ViewBag.Name</b></p>
+        <p class="mb-0">Last Active :</p>
+        <p class="mb-4"><b>@ViewBag.Time</b></p>
+        <a class="btn btn-dark align-self-center" href="@ViewBag.RetryUrl">Retry</a>
+    </div>
+    
+</div>
+
+@section Scripts {
+    @*<script src="~/Scripts/CentralAdmin/CentralAdmin.js"></script>*@
+}
+
+

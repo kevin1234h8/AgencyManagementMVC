@@ -1,0 +1,53 @@
+20230801-110415|Info|AgencyManagementMVC.MvcApplication.Application_Start|Web Application Started
+20230801-110449|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110449|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110510|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110511|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110524|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110531|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230801-110532|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230801-110535|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110536|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110537|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110537|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110537|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110537|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110545|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110556|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110557|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110558|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110558|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110558|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110558|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110606|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230801-110618|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230801-110619|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230801-110619|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230801-110619|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230801-110619|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230801-110620|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230801-110639|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110700|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110701|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110701|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110701|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 An error occurred while sending the request.
+20230801-110722|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110722|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110722|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 An error occurred while sending the request.
+20230801-110742|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230801-110804|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230801-110804|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230801-110805|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s

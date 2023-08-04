@@ -1,0 +1,13 @@
+20230803-121520|Info|AgencyManagementMVC.MvcApplication.Application_Start|Web Application Started
+20230803-121938|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 Unexpected character encountered while parsing value: <. Path '', line 0, position 0.
+20230803-121951|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 Unexpected character encountered while parsing value: <. Path '', line 0, position 0.
+20230803-122004|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Unexpected character encountered while parsing value: <. Path '', line 0, position 0.
+20230803-122226|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 Unexpected character encountered while parsing value: <. Path '', line 0, position 0.
+20230803-122239|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 Unexpected character encountered while parsing value: <. Path '', line 0, position 0.
+20230803-122250|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 Unexpected character encountered while parsing value: <. Path '', line 0, position 0.
+20230803-122252|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Unexpected character encountered while parsing value: <. Path '', line 0, position 0.
+20230803-122303|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 Unexpected character encountered while parsing value: <. Path '', line 0, position 0.
+20230803-122316|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Unexpected character encountered while parsing value: <. Path '', line 0, position 0.
+20230803-122448|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 Unexpected character encountered while parsing value: <. Path '', line 0, position 0.
+20230803-122501|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 Unexpected character encountered while parsing value: <. Path '', line 0, position 0.
+20230803-122514|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Unexpected character encountered while parsing value: <. Path '', line 0, position 0.

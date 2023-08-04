@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.SelectionLoadURL = Url.Action("GetDivisionList", "Home");
+}
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Home/Home.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Home/Reports.css")" />
+    <style>
+        h2 {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            max-width: calc(100% - 340px);
+            line-height: calc(2rem + 0.9vw);
+        }
+    </style>
+}
+
+<div class="content">
+    @Html.Partial("TabNav")
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Manage <span class="selected-division"></span></h2>
+        <div class="d-flex flex-row">
+            <button class="btn btn-dark update-division mx-2">UPDATE UTILIZATION</button>
+            <button id="select-division" class="btn btn-dark">SELECT DIVISION</button>
+        </div>
+    </div>
+
+    <div id="division-form" class="d-flex flex-column" data-request-url="@Url.Action("GetDivisionInfo","Home")">
+        <span class="text-danger size-alert fw-bold mb-1 d-none" style="padding-left: 10px;">
+            Invalid input: Allocated storage size cannot be 0 or lower than the current utilized size. Please increase the size!
+        </span>
+        <div class="split-column">
+            <div class="left-side">
+                <span>
+                    <label for="TotalSize" class="form-control-plaintext">Division Allocated Storage Size</label>
+                    <span>
+                        <input type="text" id="TotalSize" class="form-control" disabled="disabled" value="0" />
+                        &nbsp;&nbsp;GB
+                    </span>
+                </span>
+                <span>
+                    <label for="AlertThreshold" class="form-control-plaintext">Alert Threshold</label>
+                    <span>
+                        <input type="number" id="AlertThreshold" class="form-control" required="required" min="10" max="100" step="10" value="10" />
+                        &nbsp;&nbsp;%&nbsp;&nbsp;
+                    </span>
+                </span>
+            </div>
+            <div class="right-side">
+                <span>
+                    <label for="UtilizedSize" class="form-control-plaintext">Current Utilization (in GB)</label>
+                    <span>
+                        <input type="text" id="UtilizedSize" class="form-control utilized" disabled="disabled" value="0" />
+                        &nbsp;&nbsp;GB
+                    </span>
+                </span>
+                <span style="margin-right:-3px">
+                    <label for="UtilizedSizeMB" class="form-control-plaintext">Current Utilization (in MB)</label>
+                    <span>
+                        <input type="text" id="UtilizedSizeMB" class="form-control utilized" disabled="disabled" value="0" />
+                        &nbsp;&nbsp;MB
+                    </span>
+                </span>
+            </div>
+        </div>
+        <span class="text-danger fw-bold division-alert d-none">Invalid input: Department and Personal storage size combined cannot be greater than Agency allocated storage size. Please check again!</span>
+
+
+        <form id="to-check-email" style="padding:10px;margin-bottom:16px">
+            <label for="Email" class="form-control-plaintext">Email Notification Address</label>
+            <span class="w-100">
+                <input type="email" multiple="multiple" id="Email" class="form-control" placeholder=" Email" />
+                <small class="text-secondary">
+                    Example: bob@a.com,pete@b.com,...
+                </small>
+            </span>
+        </form>
+
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-dark m-3 save" data-request-url="@Url.Action("UpdateDivisionInfo","Home")">SAVE</button>
+            <button class="btn btn-dark m-3 cancel">CANCEL</button>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Utils/Agency.js"></script>
+    <script src="~/Scripts/Utils/Conversion.js"></script>
+    <script src="~/Scripts/Utils/Validation.js"></script>
+    <script src="~/Scripts/Home/Reports.js"></script>
+}

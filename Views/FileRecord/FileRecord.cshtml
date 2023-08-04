@@ -1,0 +1,664 @@
+﻿@{
+    var machineName = Environment.MachineName;
+}
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/FileRecord/FileRecord.css")" />
+}
+<div class="binf-widgets" style="
+    height: 100%;overflow-y: scroll;">
+    <div class="cs-perspective-panel">
+        <div class="workitem-view">
+            <div class="content pb-5">
+                <div class="" style="width:100%">
+                    <div class="row col-12 ">
+                        <div class="col-9">
+                            <div class="workitem-header">
+                                <div class="csui-acc-tab-region csui-acc-tab-region-active">
+                                    <span class="tile-type-icon cs-icon-left title-icon assignment-workflow"></span>
+                                    <div class="tile-title">
+                                        <h2 title="File Records" tabindex="0" class="csui-acc-focusable-active">File Records</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3" style="border-bottom: solid 0.0625rem #ccc; display: flex; align-items: end;">
+                            <div class="tab-links-bar">
+                                <span class="fadeout"></span>
+                                <ul class="binf-nav binf-nav-pills" role="tablist">
+                                    <li data-csui-tab="Attachments" role="presentation" class="binf-active">
+                                        <a href="#cstab-uid-839" id="tablink-cstab-uid-839" role="tab" aria-selected="true" aria-controls="cstab-uid-839" class="cs-tablink csui-acc-focusable-active" data-binf-toggle="tab" title="Attachments" tabindex="0" style="text-decoration:none">
+                                            <span class="cs-tablink-text" style="border-bottom: 3px solid #0072aa;padding-bottom: 3px;">Attachments</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-9 row">
+                            <div class="col-6 ">
+                                <div class="tile-header binf-modal-header" style="padding: 24px 24px; border-right: 1px solid #a9a9a9; background-color: #f6f7fa">
+                                    <div>Select a Folder to a File</div>
+                                </div>
+                                <div class="cs-breadcrumb">
+                                    Enterprise
+                                </div>
+                                <div class="select-folder-node-picker" style="">
+                                    <div>
+                                        <div class="row" style="margin: 0; background-color: #e6e6e6">
+                                            <div id="csuiHeader" class="col-12">
+                                                <div class="csui-np-header cs-folder-name">
+                                                    <div class="d-flex align-items-center">
+
+                                                        <div id="csuiNpHeader">Recent Locations</div>
+                                                        @*search*@
+                                                        @*<div class="search">
+                                                            <div class="icon"></div>
+
+                                                            <div class="input">
+                                                                <input type="search" placeholder="Search..." id="mysearch">
+                                                            </div>
+
+                                                            <span class="clear" onclick="document.getElementById('mysearch').value = ''">x</span>
+                                                        </div>*@
+                                                        <div class="search-container">
+                                                            <form action="/search" method="get">
+                                                                <input class="search" id="searchleft" type="search" name="q" placeholder="Search">
+                                                                <label class="button searchbutton" for="searchleft"><span class="mglass">&#9906;</span></label>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-6 " id="csuiHeaderContent" style="display: none;align-items: center">
+
+                                            </div>
+
+                                        </div>
+                                        <div class="row" style="height: 201px;padding:0 16px;">
+                                            <div class="col-12 main-folder">
+                                                <div id="nodePicker" style="height: 50vh; overflow-y: hidden;" onmouseover="this.style.overflowY='scroll'" onmouseout="this.style.overflowY='hidden'">
+                                                    <div class="" id="nodePickerModal">
+                                                        <div style="max-width: 1000px;width: 100%;">
+                                                            <div class="modal-content">
+                                                                <div class="custom-modal-header">
+                                                                    @*<h5 class="px-3 my-4" style="font-size:14px">Choose the Appraisal File Location</h5>*@
+                                                                    <button style="display: none;" class="btn btn-info selectThis">Select This Folder</button>
+                                                                </div>
+                                                                <div class="custom-modal-body-part d-flex flex-column gap-1">
+                                                                    <div class="custom-row-folder">
+                                                                        @*<button style="width: 153px;font-size:12px" id="selectThis" class="btn btn-info custom-node-picker-btn">Select This Folder</button>*@
+                                                                        <button id="browseAppr" type="button" class="folder-btn folderbtn" href="#">
+                                                                            <div class="d-flex align-items-center gap-2">
+                                                                                @*<img class="img-fluid mime-folder-img" src="/Images/mime_folder.svg" />Enterprise*@
+                                                                            </div>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="loading-overlay">
+                                                                    <div class="loading-content">
+                                                                        <div class="spinner-border text-primary" role="status"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="floating-error" type="button" class="btn btn-danger rounded error-close d-none">
+                                                        <span class="button-text">
+                                                            Invalid input
+                                                            <span class="badge bg-white text-danger">0</span>
+                                                        </span>
+                                                        <button class="btn btn-danger w-100 my-1 btn-folder">
+                                                            <span>
+                                                                Unselected Folder
+                                                                <span class="badge bg-white text-danger">0</span>
+                                                            </span>
+                                                            <span>Go ></span>
+                                                        </button>
+                                                        <button class="btn btn-danger w-100 my-1 btn-size">
+                                                            <span>
+                                                                Invalid Allocated Size
+                                                                <span class="badge bg-white text-danger">0</span>
+                                                            </span>
+                                                            <span>Go ></span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 file-content" id="fileContent" style="overflow-y: hidden; padding:0 24px; height: 201px;" onmouseover="this.style.overflowY='scroll'" onmouseout="this.style.overflowY='hidden'">
+                                                @*<div>Hello world</div>*@
+                                                <div class="custom-modal-body d-flex flex-column gap-1">
+                                                    <div class="custom-row-folder">
+                                                        <button style="width: 153px;font-size:12px" id="selectThis" class="btn btn-info custom-node-picker-btn">Select This Folder</button>
+                                                        <button id="browseAppr" type="button" class="folder-btn folderbtn" href="#">
+                                                            <div class="d-flex align-items-center gap-2">
+                                                                <img class="img-fluid mime-folder-img" src="/Images/mime_folder.svg" />Enterprise
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-end my-4">
+                                    <button style="font-size:12px" class="binf-btn binf-btn-primary cs-add-button csui-acc-tab-region csui-acc-focusable-active csui-acc-tab-region-active" id="selectBtn" tabindex="0">Select</button>
+                                </div>
+
+                            </div>
+
+
+                            @*nodepicker from vm*@
+
+
+
+                            @*nodepicker from faay*@
+                            @*<div id="nodePicker" class="col-6" style="height: 50vh; overflow-y: hidden;" onmouseover="this.style.overflowY='scroll'" onmouseout="this.style.overflowY='hidden'">
+                                    <div class="" id="nodePickerModal">
+                                        <div style="max-width: 1000px;width: 100%;">
+                                            <div class="modal-content">
+                                                <div class="custom-modal-header">
+                                                    <h5 class="px-3 my-4" style="font-size:14px">Choose the Appraisal File Location</h5>
+                                                    <button style="display: none;" class="btn btn-info selectThis">Select This Folder</button>
+                                                </div>
+                                                <div class="custom-modal-body d-flex flex-column gap-1">
+                                                    <div class="custom-row-folder">
+                                                        <button style="width: 153px;font-size:12px" id="selectThis" class="btn btn-info custom-node-picker-btn">Select This Folder</button>
+                                                        <button id="browseAppr" type="button" class="folder-btn folderbtn" href="#">
+                                                            <div class="d-flex align-items-center gap-2">
+                                                                <img class="img-fluid mime-folder-img" src="/Images/mime_folder.svg" />Enterprise
+                                                            </div>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="loading-overlay">
+                                                    <div class="loading-content">
+                                                        <div class="spinner-border text-primary" role="status"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="floating-error" type="button" class="btn btn-danger rounded error-close d-none">
+                                        <span class="button-text">
+                                            Invalid input
+                                            <span class="badge bg-white text-danger">0</span>
+                                        </span>
+                                        <button class="btn btn-danger w-100 my-1 btn-folder">
+                                            <span>
+                                                Unselected Folder
+                                                <span class="badge bg-white text-danger">0</span>
+                                            </span>
+                                            <span>Go ></span>
+                                        </button>
+                                        <button class="btn btn-danger w-100 my-1 btn-size">
+                                            <span>
+                                                Invalid Allocated Size
+                                                <span class="badge bg-white text-danger">0</span>
+                                            </span>
+                                            <span>Go ></span>
+                                        </button>
+                                    </div>
+                                </div>*@
+                            <div class="col-6 my-3" style="height: 50vh;">
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div style="font-size:12px">Selected Folder</div>
+                                    </div>
+                                    <textarea id="selectedFolderTextArea" name="name" class="custom-textarea"></textarea>
+                                </div>
+                                <div class="d-flex justify-content-end my-4">
+
+                                    <button style="font-size:12px" id="csuiRemoveBtn" tabindex="0">Remove</button>
+                                </div>
+
+                            </div>
+                            <div class="col-12 custom-input-container">
+                                <div class="d-flex align-items-center gap-5" style="padding:0 0 0 2rem ;max-width: 1200px;width: 100%;">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="custom-input-label" for="author">Author </label>
+                                    </div>
+                                    <input type="text" id="author" name="author" class="custom-input">
+                                </div>
+                                <div class="d-flex align-items-center gap-5" style="padding: 0 0 0 2rem; max-width: 1200px; width: 100%;">
+                                    <div class="d-flex justify-content-between" for="authorDesignation">
+                                        <label class="custom-input-label">Author Designation</label>
+                                    </div>
+                                    <input type="text" id="authorDesignation" name="authorDesignation" class="custom-input">
+                                </div>
+                                <div class="d-flex align-items-center gap-5" style="padding: 0 0 0 2rem; max-width: 1200px; width: 100%;">
+                                    <div class="d-flex justify-content-between" for="date">
+                                        <label class="custom-input-label">Date of Record </label>
+                                    </div>
+                                    <input type="text" id="date" name="date" class="custom-input" style="width: 100%;">
+                                </div>
+                                <div class="d-flex align-items-center gap-5" style="padding: 0 0 0 2rem; max-width: 1200px; width: 100%;">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="custom-input-label" for="recordType">Type of Record </label>
+                                    </div>
+                                    <input type="text" id="recordType" name="recordType" class="custom-input">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3" style="padding-right:0 !important">
+                            <div class="workitem-view">
+                                <aside role="complementary">
+                                    <div class="workitem-tabpanel binf-col-md-4 binf-col-sm-4">
+                                        <div class="workitem-tabpanel-header"></div>
+                                        <div class="workitem-tabpanel-content" style="border-left: solid 0.0625rem #ccc;">
+                                            <div id="cs-tab845" class="cs-tabpanel tab-panel csui-acc-tab-region">
+                                                @*<div class="tab-links">
+                                                        <div class="left-toolbar" style="display: none;"><div class="goto_previous_div" title="Show previous tab"><span class="icon goto_previous_page"></span></div></div>
+
+                                                        <div class="right-toolbar"><div class="goto_next_div" title="Show next tab" style="display: none;"><span class="icon goto_next_page"></span></div></div>
+                                                    </div>*@
+                                                <div class="binf-tab-content">
+                                                    <div role="tabpanel" id="cstab-uid-839" aria-labelledby="tablink-cstab-uid-839" class="binf-tab-pane binf-fade binf-in binf-active">
+                                                        <div class="workitem-attachments">
+                                                            <div class="workitem-attachment-toolbar">
+                                                                <div class="csui-acc-tab-region">
+                                                                    <div class="workitem-attachment-toolbar-view tile-nav">
+                                                                        <div class="workitem-attachment-toolbar-add">
+                                                                            <img src="~/Images/add_attachment24.svg" alt="alt" style="height: 32px;margin-top: 10px;cursor:pointer" id="addAttachmentIcon" />
+                                                                            <ul role="menu" class="csui-toolbar binf-nav binf-nav-pills csui-align-left" style="position: relative;top: 27px;z-index: 10;">
+                                                                                <li role="none" class="binf-dropdown csui-wrapper csui-more-dropdown-wrapper">
+                                                                                    <a href="#" class="binf-dropdown-toggle csui-acc-focusable " data-binf-toggle="dropdown" aria-expanded="false" aria-haspopup="true" title="Add attachment" aria-label="Add attachment">@*<img src="~/Images/add_attachment24.svg" alt="alt">*@</a>
+                                                                                    <ul id="binfDropDownMenu" class="binf-dropdown-menu csui-more-dropdown-menu" role="menu" style="padding-left: 0;background: white;display:none">
+                                                                                        <li data-csui-command="" role="none" class="">
+                                                                                            <label style="width: 100%;" for="fileuploaddesktop"><a style="cursor: pointer;" role="menuitem" class="csui-toolitem  csui-toolitem-textonly" data-cstabindex="-1">Add from Desktop<input type="file" id="fileuploaddesktop" onchange="uploadFromDesktop()" style="display:none" multiple=""></a></label><a style="cursor: pointer;" role="menuitem" class="csui-toolitem  csui-toolitem-textonly" data-cstabindex="-1">
+                                                                                            </a>
+                                                                                        </li>
+                                                                                        <li data-csui-command="" role="none" class="">
+                                                                                            <a style="cursor: pointer;" onclick="selectFileFromCS(event)" role="menuitem" class="csui-toolitem  csui-toolitem-textonly" data-cstabindex="-1">Add from Content Server</a>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="workitem-attachment-list">
+                                                                <div class="workflow-attachmentlist-form csui-acc-tab-region">
+                                                                    <div id="draganddroparea" ondrop="uploadFile(event)" ondragover="allowDrop(event)" class="workitem-dragdrop-area workitem-dragdrop-area-empty" style="height: 100vh;">
+                                                                        <div id="nofilesicon" class="workitem-dragdrop-icon" style="position: relative;top: 30px;">
+                                                                            <p class="work-item-attachments-draganddrop">Drag and drop files here</p>
+                                                                        </div>
+                                                                        <div ondragleave="cancelUpload(event)" id="dropmessage" class="csui-dropMessage" style="display: none;">
+                                                                            <p class="csui-messageBox"><span>Drop item to upload it to</span></p>
+                                                                            <p class="csui-messageBox"><span>Attachments</span></p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="workitem-attachments-scrolling csui-normal-scrolling csui-no-scroll-x" tabindex="-1">
+                                                                        <ul id="attachmentlist" class="workitem-attachments-itemlist">
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            @*<div id="loadingspinner" class="load-container binf-hidden">
+                                                                    <div class="outer-border">
+                                                                        <div class="loader"></div>
+                                                                        <div class="binf-sr-only" aria-live="polite" aria-busy="true">
+                                                                            Loading..
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="csui-common-loading-parent-wrapper binf-hidden">
+                                                                        <div class="csui-loading-3dots">
+                                                                            <div class="csui-loading-dots-wrapper">
+                                                                                <span class="csui-loading-dot"></span>
+                                                                                <span class="csui-loading-dot"></span>
+                                                                                <span class="csui-loading-dot"></span>
+                                                                            </div>
+                                                                            <div class="placeholder" aria-live="polite" aria-busy="true">
+                                                                                Loading..
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aside>
+                                @*<div id="dropArea">
+                                        <p>Drag and drop a file here</p>
+                                    </div>
+                                    <button id="test">asd</button>*@
+                            </div>
+                        </div>
+
+                        @*footer*@
+                        <div class="workitem-footer cs-dialog binf-modal-footer">
+                            <div class="d-flex align-items-center gap-4">
+                                <button onclick="submitForm(event);" class="binf-btn binf-btn-primary" title="File Records">File Records</button>
+                                <button class="binf-btn binf-btn-danger" title="Close" onclick="cancelForm(event);">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    @*<script src="~/Scripts/Utils/FileRecord.js"></script>*@
+    <script>
+const addAttachmentIcon = document.getElementById("addAttachmentIcon");
+const binfDropDownMenu = document.getElementById("binfDropDownMenu");
+addAttachmentIcon.addEventListener("click", () => {
+    if (binfDropDownMenu.style.display === "block") {
+        binfDropDownMenu.style.display = "none";
+    } else {
+        binfDropDownMenu.style.display = "block";
+    }
+})
+
+const dragAndDropArea = document.getElementById("draganddroparea");
+dragAndDropArea.addEventListener('dragover', (e) => {
+    e.preventDefault();
+});
+
+// Handle the file drop event
+dragAndDropArea.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    displayFileInfo(file);
+});
+
+        function formatDateToMMDDYYYY(inputDate) {
+            const date = new Date(inputDate);
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${month}/${day}/${year}`;
+        }
+
+
+function displayFileInfo(file) {
+    $("#date").val(formatDateToMMDDYYYY(file.lastModifiedDate))
+}
+
+var loadingModal = new bootstrap.Modal(document.getElementById('loading-modal'));
+var confirmationModal = new bootstrap.Modal(document.getElementById('confirmation-modal'));
+var saveConfirmationModal = new bootstrap.Modal(document.getElementById('save-confirmation-modal'));
+var selectionModal = new bootstrap.Modal(document.getElementById('selection-modal'),);
+var nodePickerModal = document.getElementById('nodePickerModal');
+var currentID = 2000;
+        var idArray = [];
+const selectedFolderTextArea = document.getElementById("selectedFolderTextArea");
+   
+var fullPath = "";
+var customNodePickerBtnWidth = "150px";
+        $(window).on('load', function () {
+            var nodePickerModal = $('#nodePickerModal');
+            nodePickerModal.css("display", "flex");
+        });
+
+console.log(nodePickerModal)
+
+$('#nodePickerModal .btn-cancel').on('click', function () {
+    nodePickerModal.hide();
+});
+
+$('#nodePickerModal .close').on('click', function () {
+    nodePickerModal.hide();
+});
+
+idArray = [];
+        $(".custom-modal-body").empty();
+
+
+
+        $(".custom-modal-body-part").empty();
+        $(".custom-modal-body-part").append(
+            '<div class="custom-row-folder"><button id="browseAppr" type="button" class="folder-btn folderbtn custom-folder-btn" href="#"><img class="img-fluid mime-folder-img" src="Images/mime_folder.svg" />PTTEP Workspace</button></div>'
+        );
+
+$('#nodePickerModal #selectThis').on('click', function () {
+    getValue(2000, 'in')
+    $(".file-content").show();
+});
+$('#nodePickerModal #browseAppr').on('click', function () {
+    Browser(2000, 'in');
+
+});
+
+        
+        $('#browseAppr').on('click', function () {
+            Browser(2000, 'in')
+        });
+    
+
+        $('#selectBtn').on('click', function () {
+            var nodeID = document.querySelector('.chk:checked').id;
+            var nodePath = document.querySelector('.chk:checked').value;
+            console.log(nodeID);
+            console.log(nodePath);
+          
+            if (selectedFolderTextArea.value === "") {
+                selectedFolderTextArea.value = nodePath
+            } else {
+                selectedFolderTextArea.value = selectedFolderTextArea.value + "\n" + nodePath
+            }
+            var settingTableRowID = "folderinput" + settingRowID
+            document.getElementById(settingTableRowID).value = nodePath;
+            nodePickerModal.hide();
+        });
+
+function getValue(id, direction) {
+    currentID = id;
+    $.ajax({
+        url: '@Url.Action("GetFolders", "Home")',
+        method: "POST",
+        data: { id: id },
+        success: function (response) {
+            if (direction == "in")
+                idArray.push(id);
+            else
+                idArray.pop();
+            fullPath = "";
+            fullPath = response[0].join("/")
+            console.log(fullPath);
+            console.log(currentID);
+            $(".cs-breadcrumb").text(fullPath)
+
+
+        },
+        error: function (response) {
+        },
+    });
+}
+function Browser(id, direction) {
+    currentID = id;
+    $(".custom-modal-body, .selectThis").hide();
+    $(".loading-overlay, .loading-content").addClass("active");
+    $.ajax({
+        url: '@Url.Action("GetFolders", "Home")',
+        method: "POST",
+        data: { id: id },
+        success: function (response) {
+            $(".custom-modal-header h5").empty();
+            if (direction == "in")
+                idArray.push(id);
+            else
+                idArray.pop();
+            console.log(idArray);
+            $(".custom-modal-body").empty();
+            fullPath = "";
+            console.log(response[0]);
+            const result = response.join('/');
+
+            const finalResult = result.replace(/\[|\]/g, '');
+            console.log("finalResult", finalResult)
+            if (response[1].length > 0) {
+                $("#nodePicker").css("height", "50vh")
+            } else {
+                $("#nodePicker").css("height", "50vh")
+            }
+            response[0].forEach(function (folderName) {
+                fullPath += folderName + "/";
+                $(".custom-modal-header h5").append(
+                    '<span class="folder-name">'.concat(
+                        folderName,
+                        '</span><span class="folder-slash">/</span>'
+                    )
+                );
+            $("#csuiHeaderContent").text(folderName)
+            });
+            console.log("fullPath : ", fullPath)
+            $(".cs-breadcrumb").text(fullPath)
+            if (id != 2000) {
+                $(".custom-modal-body").append('<div class="custom-folder-row"><button id="btnback" type="button" class="folder-btn folder-back"><img class="img-fluid" src="/Images/up_left.svg" />Back</button></div>');
+                $(".folder-content").append('<div class="custom-folder-row"><button id="btnback" type="button" class="folder-btn folder-back"><img class="img-fluid" src="/Images/up_left.svg" />Back</button></div>');
+                $(document).on('click', '#btnback', function (event) {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    Browser(idArray[idArray.length - 2], 'out')
+                });
+            }
+            response[1].forEach(function (node) {
+                $(".custom-modal-body ").append(
+                    '<div class="custom-folder-row d-flex gap-2"><input  id=\'' + node.NodeID + '\' type="checkbox" class="chk" value=\'' + fullPath + node.Name + '\' aria-label="..."><button id=\'' + "btnsubfolder" + node.NodeID + '\' type="button" class="folder-btn folderbtn custom-folder-btn" href="#"><img class="img-fluid mime-folder-img" src="Images/mime_folder.svg" /> ' + node.Name + ' </button></div > '
+
+                );
+             
+
+                $("#folderContent").append(
+                    '<div class="custom-folder-row d-flex gap-2"><input style="" id=\'' + node.NodeID + '\' type="checkbox" class="chk" value=\'' + fullPath + node.Name + '\' aria-label="..."><button id=\'' + "btnsubfolder" + node.NodeID + '\' type="button" class="folder-btn folderbtn custom-folder-btn" href="#"><img class="img-fluid mime-folder-img" src="Images/mime_folder.svg" /> ' + node.Name + ' </button></div > '
+                );
+                $('input.chk').on('change', function () {
+                    $('input.chk').not(this).prop('checked', false);
+                });
+                $(document).on('click', '#selectThis' + node.NodeID, function (event) {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    getValue(node.NodeID, 'in')
+                });
+                $(document).on('click', '#btnsubfolder' + node.NodeID, function (event) {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    Browser(node.NodeID, 'in')
+                });
+            });
+
+            const mainFolderDiv = $(".main-folder");
+            const csuiHeader = $("#csuiHeader");
+            csuiHeader.removeClass("col-12").addClass("col-6");
+            mainFolderDiv.removeClass("col-12").addClass("col-6");
+            $(".file-content").show();
+            $("#csuiHeaderContent").css("display" , "flex");
+            $(".loading-overlay, .loading-content").removeClass("active");
+            $(".custom-modal-body").fadeIn();
+        },
+        error: function (response) {
+            alert("Error, " + response);
+            $(".loading-overlay, .loading-content").removeClass("active");
+            $(".custom-modal-body").fadeIn();
+        }
+    });
+        }
+
+        //handle validate upload
+        function validateNodes(files) {
+            for (let i = 0; i < files.length; i++) {
+                const fileCheckValue = {
+                    parent_id: folderID,
+                    names: [files[i].name]
+                };
+                var xhr = new XMLHttpRequest();
+                var validateUrl = window.location.origin + "/otcs/cs.exe/api/v1/validation/nodes/names";
+                xhr.open('POST', validateUrl, false);
+                xhr.setRequestHeader("otcsticket", ticket);
+                var formData = new FormData();
+                formData.append('body', JSON.stringify(fileCheckValue));
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        let fileCheckResult = JSON.parse(xhr.responseText);
+                        if (fileCheckResult.results.length > 0) {
+                            // Document Found, Adding Version
+                            let documentid = fileCheckResult.results[0].id;
+                            addVersion(documentid, files[i]);
+                        } else {
+                            // Document not Found, uploading Document
+                            handleFile(files[i])
+                        }
+                    }
+                };
+                xhr.send(formData);
+            }
+        }
+
+        function selectFileFromCS(e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            nodePicker
+                .show()
+                .done(function (args) {
+                    var node = args.nodes[0];
+                    console.log(node);
+                    var xhr = new XMLHttpRequest();
+                    var uploadUrl = window.location.origin + "/otcs/cs.exe/api/v2/nodes";
+                    xhr.open('POST', uploadUrl, false);
+                    xhr.setRequestHeader("otcsticket", ticket);
+                    var formData = new FormData();
+                    formData.append("original_id", node.attributes.id);
+                    formData.append("parent_id", folderID);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4) {
+                            console.log(JSON.parse(xhr.responseText));
+                            renderList(folderID);
+                        }
+                    };
+                    xhr.send(formData);
+                });
+        }
+
+        function uploadFromDesktop() {
+            let files = document.getElementById("fileuploaddesktop").files;
+            validateNodes(files)
+        }
+
+        function submitForm(e) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            alert("test");
+        }
+
+        function cancelForm(e) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            history.back();
+        }
+
+
+        $("#fileContent #browseAppr").on('click', function () {
+            $(".main-folder").remove();
+            const newFileContentDiv = $('<div class="col-6 file-content" id="fileContent">');
+            newFileContentDiv.append('<div>Hello world</div>'); 
+
+            $(".row").append(newFileContentDiv);
+        });
+        const icon = document.querySelector(".icon");
+        const search = document.querySelector(".search");
+
+        const csuiNpHeader = document.getElementById("csuiNpHeader");
+        const searchInput = document.querySelector(".search");
+
+        searchInput.addEventListener("focus", () => {
+            csuiNpHeader.style.display = "none";
+        });
+
+        searchInput.addEventListener("blur", () => {
+            csuiNpHeader.style.display = "block";
+        });
+    </script>
+}

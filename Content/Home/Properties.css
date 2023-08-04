@@ -1,0 +1,155 @@
+﻿body{
+    padding-top: 0px;
+}
+.divrow {
+    background-color: white;
+}
+h4 {
+    color: #00498f;
+}
+   
+td.prop{
+    border-bottom: none;
+    height: 60px;
+}
+
+form div, #general {
+    padding: 20px;
+}
+
+.space {
+    width: 150px;
+}
+#casePrefix, #planningArea, #loanStatus, #caseStatus, #docType, #agency, #docKey, #retentionPolicy, #description, #securityClassification, #sensitivityRating, #NASAccessType, .tb {
+    border: hidden;
+}
+
+select {
+    -webkit-appearance: none;
+}
+
+#general table {
+    width: 500px;
+}
+
+button {
+    border: none;
+    background-color: white;
+}
+
+.tab-links-custom {
+    display: flex;
+    list-style: none;
+    height: 48px;
+    background-color: #eef2f4;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+   
+}
+
+li {
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+}
+
+li a {
+    color: #000;
+    padding-bottom: 5px;
+}
+
+li a:hover {
+    color: #000;
+    text-decoration: none;
+    border-bottom: 3px solid #000;
+}
+
+.active {
+    font-weight: 700;
+    color: #000;
+    border-bottom: 3px solid #337ab7;
+}
+
+.field-validation-error {
+    color: #ff0000;
+}
+
+.table {
+    overflow: auto;
+}
+
+
+.table form {
+    margin-left: 80px;
+}
+
+@media (max-width: 1500px){
+    table {
+        width: 1200px;
+    }
+}
+
+@media (max-width: 1200px){
+    table{
+        width: 900px;
+    }
+    .space {
+        width: 100px;
+    }
+    .table form {
+        margin-left: 50px;
+    }
+    #general table {
+        width: 390px;
+    }
+    .firstCol {
+        width: 200px;
+    }
+
+    .secCol {
+        width: 200px;
+    }
+
+    #thirdCol {
+        width: 200px;
+    }
+
+    #fourthCol {
+        width: 200px;
+    }
+}
+@media (max-width: 768px) {
+    table {
+        width: 500px;
+    }
+    .space{
+        width: 100px;
+    }
+    .table form {
+        margin-left: 40px;
+    }
+}
+.ref {
+    text-align: center;
+    word-wrap: break-word;
+    max-width: 100px;
+}
+.ref a:link {
+    color: #000000;
+    text-decoration: none;
+}
+td.ref {
+    border-top: 1px solid black;
+    /*
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;*/
+}
+.long-value-input {
+    width: 200px;
+    height: 30px;
+    padding: 0px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

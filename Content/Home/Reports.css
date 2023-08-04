@@ -1,0 +1,27 @@
+﻿.split-column {
+    display: flex;
+}
+
+    .split-column div {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 0px 50px 0px 10px;
+        border-right: 1px solid #eee;
+    }
+
+        .split-column div.right-side {
+            border: none;
+        }
+
+        .split-column div span {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .split-column div > span,
+        .split-column div form > span {
+            margin-bottom: 15px;
+        }

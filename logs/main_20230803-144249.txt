@@ -1,0 +1,5 @@
+20230803-144249|Info|AgencyManagementMVC.MvcApplication.Application_Start|Web Application Started
+20230803-144710|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 A task was canceled.
+20230803-144850|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 A task was canceled.
+20230803-145031|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s

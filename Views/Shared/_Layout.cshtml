@@ -1,0 +1,524 @@
+﻿@{
+    string hostAddress = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+    string iconPath = "/img/csui/themes/carbonfiber/image/icons/";
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@(string.IsNullOrWhiteSpace(ViewBag.Title) ? "" : ViewBag.Title + " - ") @Labels.AppName</title>
+    <link runat="server" rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+    <link runat="server" rel="icon" href="~/favicon.ico" type="image/ico" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Site.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Home/NodePicker.css")" />
+    <style>
+        .unlock-icon{
+            width: 43px;
+            height: 24px;
+            mask: url(@(hostAddress+iconPath+"unlock.svg")) no-repeat center / contain;
+            -webkit-mask: url(@(hostAddress+iconPath+"unlock.svg")) no-repeat center / contain;
+            background-color: #fff;
+            margin: 9.5px 0;
+        }
+    </style>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("styles", required: false)
+</head>
+<body id="body">
+    <div class="popup-overlay">
+        <div class="popup-content">
+            <div class="spinner-cust text-primary" role="status">
+                <img src="~/Images/spinner/spinner-outer.svg" alt="spinner-outer" />
+                <div class="spinner-cust-inner text-primary">
+                    <img src="~/Images/spinner/spinner-inner.svg" alt="spinner-inner" />
+                    <div class="spinner-cust-inner-speen text-primary">
+                        <img src="~/Images/spinner/spinner-inner-quad.svg" alt="spinner-inner-quad" />
+                    </div>
+                </div>
+            </div>
+            <span class="spinner-text text-primary">Loading</span>
+        </div>
+    </div>
+    <div class="d-flex flex-row h-100">
+        <div class="left-pane d-flex flex-column d-none" style="width:300px">
+            <a href="@Url.Action("Settings","Home")" class="@(ViewBag.Title==Labels.TitleSettings?"active":"")">
+                Settings
+            </a>
+            <a href="@Url.Action("Reports","Home")" class="@(ViewBag.Title==Labels.TitleReports?"active":"")">
+                Utilization Reports
+            </a>
+            <a href="@Url.Action("FileRecord","FileRecord")" class="@(ViewBag.Title==Labels.TitleReports?"active":"")">
+                File Records
+            </a>
+        </div>
+        <div class="d-flex flex-column w-100">
+            <div class="menubar-cs">
+                <div class="navbar-left">
+                    <button class="menubar-item" title="Expand left pane">
+                        <div class="pane-toggle text-white">☰</div>
+                        <div class="pane-toggle text-white d-none" style="font-size:1.2rem">x</div>
+                    </button>
+                    <button data-url="@Url.Action("PageUnlock","PageLock",new { nodeID = -1, appName = ViewBag.AppName })" class="menubar-item btn-unlock" title="Unlock current page and redirect to Content Server Home">
+                        <div class="unlock-icon"></div>
+                    </button>
+                </div>
+                <div class="custom-brand">
+                    <div>
+                        @Labels.AppName
+                        @*<span>&nbsp;@(string.IsNullOrWhiteSpace(ViewBag.Title)?"":"| "+ViewBag.Title)</span>*@
+                    </div>
+                </div>
+            </div>
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-info">
+                    @TempData["Message"]
+                </div>
+            }
+
+            <!-- Top Bar Info -->
+            @*<div class="menubar-info @(ViewBag.AppName == "Page Lock"?"d-none":"")" title="This page is now locked from other user's access to perform the same configuration. Please click on the 'Home' button to unlock & leave the page.">
+                <img src="@(hostAddress+iconPath+"notification_information24.svg")" alt="info icon" />
+                &nbsp;
+                This page is now locked from other user's access to perform the same configuration.
+                &nbsp;
+                <b>Please click on the 'Home' button to unlock & leave the page.</b>
+            </div>*@
+
+            <!-- Main Content -->
+            @RenderBody()
+
+        </div>
+    </div>
+
+        <!-- Loading Modal -->
+        <div class="modal fade" id="loading-modal" tabindex="-1" aria-labelledby="loading-modalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header d-none">
+                    </div>
+                    <div class="modal-body d-flex flex-column align-items-center">
+                        <span class="modal-message m-2">Processing...</span>
+                        <div class="modal-spinner spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <button type="button" class="btn btn-primary d-none" data-bs-dismiss="modal">OK</button>
+                    </div>
+                    <div class="modal-footer justify-content-center d-none">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Delete Confirmation Modal -->
+        <div class="modal fade" id="confirmation-modal" tabindex="-1" aria-labelledby="confirmation-modalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body d-flex flex-column align-items-center">
+                        <div class="d-flex d-flex flex-column align-items-center m-3">
+                            <span class="modal-message">Are you sure if you want to remove the settings for <b></b>?</span>
+                            <span style="font-size:0.8em; font-weight:bold">*Changes will ONLY be applied upon clicking "SAVE" button on the main form</span>
+                        </div>
+                        <span class="modal-button">
+                            <button type="button" data-index="-1" class="btn btn-danger me-5 px-5 py-1 btn-yes">Yes</button>
+                            <button type="button" class="btn btn-secondary px-5 py-1" data-bs-dismiss="modal">No</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Confirmation Modal -->
+        <div class="modal fade" id="save-confirmation-modal" tabindex="-1" aria-labelledby="save-confirmation-modalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header py-2">
+                        <b class="modal-title">Save and Continue</b>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex flex-column align-items-center py-2">
+                        <div class="d-flex d-flex flex-column align-items-center m-2">
+                            <span class="modal-message">Would you like to save changes made to this page?</span>
+                        </div>
+                        <span class="modal-button d-flex justify-content-between w-100 px-5">
+                            <button type="button" data-index="-1" class="btn btn-secondary me-5 px-5 py-1 btn-no-save">Continue without Saving</button>
+                            <button type="button" class="btn btn-primary px-5 py-1 btn-yes-save">Save and Continue</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selection Modal -->
+        <div class="modal fade" id="selection-modal" data-request-url="@ViewBag.SelectionLoadURL" tabindex="-1" aria-labelledby="selection-modalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered modal-sm">
+                <div class="modal-content">
+                    <div class="no-division d-none">
+                        <div class="modal-body d-flex flex-column align-items-center">
+                            <span class="modal-message m-2 text-center">No Agency found, please contact the Central Administrator.</span>
+                            <button type="button" class="btn btn-dark btn-unlock" data-url="@Url.Action("PageUnlock","PageLock",new { nodeID = -200, appName = ViewBag.AppName })">BACK</button>
+                        </div>
+                    </div>
+                    <div class="selection">
+                        <div class="modal-header">
+                            Please select an Agency
+                        </div>
+                        <div class="modal-body d-flex flex-column align-items-center">
+                            <select class="form-select">
+                                <option selected disabled="disabled" value="">[Select Agency]</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-primary disabled">OK</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <!-- Node Picker Modal -->
+    <div class="modal fade" id="nodePickerModal" tabindex="-1" role="dialog" aria-labelledby="appraisalModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Select Folder Location</h5>
+                <button style="display: none;" class="btn btn-info selectThis">Select This Folder</button>
+                <button type="button" class="close" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row folder-row"><button id="browseAppr" type="button" class="folder-btn folderbtn" href="#"><img class="img-fluid" src="/Images/mime_folder.svg"/>Enterprise</button></div>
+            </div>
+            <div style="border: none;" class="loading-overlay">
+                <div style="border: none;" class="loading-content">
+                    <div class="spinner-border text-primary" role="status"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info">Select</button>
+                <button type="button" class="btn btn-outline-dark">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Floating Error Info-->
+        <div id="floating-error" type="button" class="btn btn-danger rounded error-close d-none">
+            <span class="button-text">
+                Invalid input
+                <span class="badge bg-white text-danger">0</span>
+            </span>
+            <button class="btn btn-danger w-100 my-1 btn-folder">
+                <span>
+                    Unselected Folder
+                    <span class="badge bg-white text-danger">0</span>
+                </span>
+                <span>Go ></span>
+            </button>   
+            <button class="btn btn-danger w-100 my-1 btn-size">
+                <span>
+                    Invalid Allocated Size
+                    <span class="badge bg-white text-danger">0</span>
+                </span>
+                <span>Go ></span>
+            </button>
+        </div>
+
+        @Scripts.Render("~/bundles/bootstrap")
+
+        <script>
+    window.onbeforeunload = function () {
+        // This function does nothing.  It won't spawn a confirmation dialog
+        // But it will ensure that the page is not cached by the browser.
+    }
+
+    $(document).ready(function () {
+        ShowMenubarInfo();
+
+        //to avoid agency selection autofill
+        $('#selection-modal select').prop('selectedIndex',0);
+    });
+
+    var loadingModal = new bootstrap.Modal(document.getElementById('loading-modal'));
+    var confirmationModal = new bootstrap.Modal(document.getElementById('confirmation-modal'));
+    var saveConfirmationModal = new bootstrap.Modal(document.getElementById('save-confirmation-modal'));
+    var selectionModal = new bootstrap.Modal(document.getElementById('selection-modal'),);
+    var nodePickerModal = new bootstrap.Modal(document.getElementById('nodePickerModal'));
+    var currentID = 2000;
+    var idArray = [];
+    var fullPath = "";
+    var settingRowID = 0;
+    
+
+    $('.menubar-cs').hover(
+        () => MenubarInfoTop("0"),
+        () => MenubarInfoTop("-50px")
+    );
+
+    $('.pane-toggle').click(function () {
+        $('.pane-toggle').toggleClass("d-none");
+        $('.left-pane').toggleClass('d-none');
+    });
+
+    function showNodePicker(rowID){
+        $(".modal-header h5").text("Choose Folder Location");
+        idArray = [];
+        $(".modal-body").empty();
+        $(".modal-body").append(
+        '<div class="row folder-row"><button id="browseAppr" type="button" class="folder-btn folderbtn" href="#"><img class="img-fluid" src="Images/mime_folder.svg"/>PTTEP Workspace</button></div>'
+        );
+        $('#nodePickerModal #selectThis').on('click', function () {
+          getValue(2000, 'PTTEP Workspace')
+        });
+        $('#nodePickerModal #browseAppr').on('click', function () {
+              Browser(2000, 'in')
+        });
+        settingRowID = rowID;
+        nodePickerModal.show();
+    }
+
+    //nodepicker logic
+    
+    $('#nodePickerModal .btn-outline-dark').on('click', function () {
+          nodePickerModal.hide();
+    });
+
+    $('#nodePickerModal .close').on('click', function () {
+        nodePickerModal.hide();
+    });
+
+     
+    $('#nodePickerModal .btn-info').on('click', function () {
+          var nodeID = document.querySelector('.chk:checked').id;
+          var nodePath = document.querySelector('.chk:checked').value;
+          console.log(nodeID);
+          console.log(nodePath);
+          var settingTableRowID = "folderinput" + settingRowID
+          document.getElementById(settingTableRowID).value = nodePath;
+          nodePickerModal.hide();
+    });
+
+    function getValue(id, fullPath) {
+        currentID = id;
+        var settingTableRowID = "folderinput" + settingRowID
+        document.getElementById(settingTableRowID).value = fullPath;
+        console.log(fullPath);
+        console.log(currentID);
+        nodePickerModal.hide();
+    }
+    function Browser(id, direction) {
+        currentID = id;
+        $(".modal-body, .selectThis").hide();
+        $(".loading-overlay, .loading-content").addClass("active");
+        $.ajax({
+            url: '@Url.Action("GetFolders", "Home")',
+            method: "POST",
+            data: {id: id },
+            success: function (response) {
+        $(".modal-header h5").empty();
+                if (direction == "in")
+                    idArray.push(id);
+                else
+                    idArray.pop();
+                console.log(idArray);
+                $(".modal-body").empty();
+                fullPath = "";
+                console.log(response);
+                response[0].forEach(function (folderName) {
+                fullPath += folderName + "/";
+                    $(".modal-header h5").append(
+                        '<span class="folder-name">'.concat(
+                        folderName,
+                        '</span><span class="folder-slash">/</span>'
+                        )
+                    );
+                });
+                if (id != 2000) {
+                    $(".modal-body").append('<div class="folder-row"><button id="btnback" type="button" class="folder-btn folder-back"><img class="img-fluid" src="/Images/up_left.svg"/>Back</button></div>');
+                   
+                    $(document).on('click', '#btnback', function (event) {
+                        event.preventDefault();
+                        event.stopImmediatePropagation();
+                        Browser(idArray[idArray.length - 2], 'out')
+                    });
+                }
+                response[1].forEach(function (node) {
+                    console.log("Node name : " + node.Name);
+                    $(".modal-body").append(
+                        '<div class="row folder-row"><input style="width: 3%;" id=\'' + node.NodeID + '\' type="checkbox" class="chk" value=\'' + fullPath + node.Name + '\' aria-label="..."><button id=\'' + "btnsubfolder"+ node.NodeID + '\' type="button" class="folder-btn folderbtn" href="#"><img class="img-fluid" src="Images/mime_folder.svg"/> ' + node.Name + ' </button></div > '
+                       
+                    );
+                    $('input.chk').on('change', function() {
+                        $('input.chk').not(this).prop('checked', false);  
+                    });
+                    $(document).on('click', '#btnsubfolder' + node.NodeID, function (event) {
+                        event.preventDefault();
+                        event.stopImmediatePropagation();
+                        Browser(node.NodeID, 'in')
+                    });
+                });
+
+                $(".loading-overlay, .loading-content").removeClass("active");
+                $(".modal-body").fadeIn();
+            },
+            error: function (response) {
+                alert("Error, " + response);
+                $(".loading-overlay, .loading-content").removeClass("active");
+                $(".modal-body").fadeIn();
+
+            }
+        });
+} 
+        //nodepicker logic
+
+    function ShowMenubarInfo() {
+        //currently not applied
+        let menubarInfo = $('.menubar-info span');
+        menubarInfo.css("top", "0");
+        setTimeout(function () {
+            menubarInfo.css("top", "-50px");
+        }, 5000);
+    };
+
+    function MenubarInfoTop(value) {
+        let menubarInfo = $('.menubar-info span');
+        menubarInfo.css("top", value);
+    };
+
+    function ProcessState(state, action = 'load') {
+        let element = $(loadingModal._element); //convert to jquery object
+        let message = element.find('.modal-message').first();
+        let spinner = element.find('.modal-spinner').first();
+        let button = element.find('.btn').first(); //ok button
+        element.data('state',state);
+        element.data('action',action);
+        switch (state) {
+            case 'start':
+                $(message).html(action == 'save' ? 'Processing...' : 'Loading data...');
+                $(spinner).removeClass('d-none');
+                $(button).addClass('d-none');
+                loadingModal.show();
+                break;
+            case 'saved':
+                $(message).html('Settings have been saved.');
+                $(button).removeClass('d-none');
+                $(spinner).addClass('d-none');
+                break;
+            case 'stop':
+                loadingModal.hide();
+                break;
+            case 'alert':
+                $(message).html(action);
+                $(button).removeClass('d-none');
+                $(spinner).addClass('d-none');
+                loadingModal.show();
+                break;
+            default:
+                $(message).html('Modal Error: The state is unknown.');
+                $(button).removeClass('d-none');
+                $(spinner).addClass('d-none');
+                loadingModal.show();
+        }
+    }
+
+    function FormatUnlockUrl(element) {
+        let url = $(element).data('url');
+        let agencyID = $(element).data('agency-id');
+        if (agencyID != null && agencyID > 0) {
+            if (url.includes("-1")) {
+                url = url.replace("-1", agencyID);
+            }
+        }
+        return url;
+    }
+
+    $('.btn-unlock').click(function () {
+        @*if ("@ViewBag.AppName" == "@Labels.AppNameEFM") {
+            if ($('.save, .save-pws').not('.d-none').length > 0) {
+                let saveModal = $('#save-confirmation-modal');
+                saveModal.data('unlock-url',FormatUnlockUrl(this));
+                saveConfirmationModal.show();
+                return; //unlock will be done by on confirmation pop up
+            }
+        }*@
+
+        window.location.replace(FormatUnlockUrl(this)); //replace will prevent user from pressing back on browser after unlock the page
+    });
+
+    $('#confirmation-modal .btn-yes').on('click', function () {
+        let index = $(this).data('index');
+        let selectedRow = $('table tr').eq(index);
+        @*if ("@ViewBag.AppName" == "@Labels.AppNameSM")
+            selectedRow.remove();
+        else*@
+        selectedRow.addClass('d-none');
+        confirmationModal.hide();
+
+        //revalidate after click yes
+        $('table').change();
+    });
+
+    $('#save-confirmation-modal').on('click', '.modal-button > button', function () {
+        let button = $(this);
+        let modal = $('#save-confirmation-modal');
+        let unlockUrl = modal.data('unlock-url');
+
+        if (button.hasClass('btn-yes-save')) {
+            let saveBtn = $('.save');
+            let savePwsBtn = $('.save-pws');
+            if (!saveBtn.hasClass('d-none') || !savePwsBtn.hasClass('d-none')) {//atleast 1 changes on any
+                if (saveBtn.hasClass('d-none')) saveBtn.removeClass('d-none');
+                saveBtn.click(); //this will trigger save pws as well based on the handler on EFM AgencyAdmin.js
+            }
+        }
+        else {
+            $('.cancel').click();
+        }
+
+        if (unlockUrl != null && unlockUrl.length > 0)
+            window.location.replace(unlockUrl);
+        else selectionModal.show();
+
+        saveConfirmationModal.hide();
+
+    });
+
+    $(saveConfirmationModal._element).on('hide.bs.modal', function () {
+        $(this).data('unlock-url', null); //clear unlock url
+    });
+
+
+    $('#floating-error').on('click', function () {
+        let that = $(this);
+        that.toggleClass('btn btn-danger error-open error-close border border-danger');
+    });
+
+    $('#floating-error button').click(function (e) {
+        e.stopPropagation();
+        let that = $(this);
+        if (that.hasClass('btn-folder')) {
+            $('.folders.border-danger,\
+                    .shareds.border-danger,\
+                    .personals.border-danger,\
+                    .row-path.border-danger'
+            ).first().focus();
+        }
+        else if (that.hasClass('btn-size')) {
+            $('table input[type=text].border-danger,\
+                .default-limit input[type=text].border-danger').first().focus();
+        }
+    });
+
+        </script>
+
+        @RenderSection("scripts", required: false)
+</body>
+</html>

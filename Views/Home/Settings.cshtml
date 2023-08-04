@@ -1,0 +1,179 @@
+﻿@section Styles {
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Home/Home.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Home/NodePicker.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Home/datepicker.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Home/sellect.css")" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Home/Properties.css")" />
+}
+
+
+
+<div class="content pb-5" data-auth="@Url.Action("Auth","Home")" data-request-url="@Url.Action("GetSettings","Home")">
+    @Html.Partial("TabNav")
+
+    <div class="divrow" id="propertiesView">
+        <div id="myTabs">
+
+            <ul class="tab-links-custom">
+
+                <li><a class="tabs">General</a></li>
+                <li><a class="tabs">Case Information</a></li>
+                <li><a class="tabs"><span style="color: red">*</span>Document Information</a></li>
+                <li><a class="tabs">References</a></li>
+        
+            </ul>
+        </div>
+
+         <div class="table">
+            <form asp-action="AddCategory" asp-controller="Home" method="post" autocomplete="off">
+                
+                <div id="general">
+                    <h4>General</h4>
+                    <table>
+                        <caption hidden>General</caption>
+
+                        <tr hidden>
+                            <th scope="col">General</th>
+                        </tr>
+                        <tr>
+                            <td class="prop firstCol prop">Created [E-Filed]</td>
+                            <td class="prop secCol prop">
+                                <span>test</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="prop fc prop">Created By [E-Filer]</td>
+                            <td class="prop secCol prop">
+                                <span>test</span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="prop firstCol prop">Modified</td>
+                            <td class="prop secCol prop">
+                                <span>test</span>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td class="prop firstCol">Owned By</td>
+                            <td class="prop secCol">
+                                <span>test</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="prop firstCol">Item ID</td>
+                            <td class="prop secCol">
+                                <span>test</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="prop firstCol">Type</td>
+                            <td class="prop secCol">
+                                <span>test</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="prop firstCol">Size</td>
+                            <td class="prop secCol">
+                                <span id="itemSize">
+                                    
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="prop firstCol">Description</td>
+                            <td class="prop secCol"></td>
+                        </tr>
+                        <tr>
+                            <td class="prop firstCol">Security Clearance</td>
+                            <td class="prop secCol">
+                                
+                        </tr>
+                <tr>
+                    <td class="prop firstCol"></td>
+                    <td class="prop secCol">
+                        <span></span>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="prop firstCol">Keywords</td>
+                            <td class="prop secCol">
+                                <span></span>
+                            </td>
+                        </tr>
+            <tr>
+                <td class="prop firstCol">Borrowed By</td>
+                <td class="prop secCol">
+                    <span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="prop firstCol">Borrowed Date</td>
+                <td class="prop secCol">
+                    <span></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="prop firstCol">Return By Date</td>
+                <td class="prop secCol">
+                    <span></span>
+                </td>
+            </tr>
+           </table>
+          </div>
+        </form>
+        </div>
+
+    </div>
+
+    <div class="section-title">
+        <h3 for="shared-toggle" class="fw-bold">Limit File Classification Scheme</h3>
+        <div class="caret"></div>
+    </div>
+    <div id="shared-storage-wrapper" class="section-wrapper">
+
+        <div class="section-settings">
+            <div>
+                <label for="default-shared-threshold" class="form-control-plaintext">
+                    Default Folder Level
+                </label>
+                <span>
+                    <input id="default-folder-limit" type="number" value="4" class="form-control" />
+                    &nbsp;&nbsp;Level&nbsp;&nbsp;
+                </span>
+            </div>
+
+        </div>
+        <span class="text-danger department-alert fw-bold d-none">Invalid input: Total storage size exceeds Department allocated storage size. Please reduce the size!</span>
+        <table class="table table-bordered shared" aria-label="Specific Folder Classification Scheme Limit">
+            <thead>
+                <tr>
+                    <th>Folder Location</th>
+                    <th>Level Limit</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <button class="btn btn-outline-secondary bg-light text-black add-shared">
+            + Add Specific Folder Classification Scheme Limit
+        </button>
+    </div>
+    <hr />
+
+   
+
+    <div class="d-flex justify-content-center">
+        <button class="btn btn-dark m-3 save" data-request-url="@Url.Action("UpdateSettings","Home")">SAVE</button>
+        <button class="btn btn-dark m-3 cancel">CANCEL</button>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Utils/Conversion.js"></script>
+    <script src="~/Scripts/Utils/Validation.js"></script>
+    <script src="~/Scripts/Home/Settings.js"></script>
+}

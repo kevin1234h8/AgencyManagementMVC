@@ -1,0 +1,5 @@
+20230804-102446|Info|AgencyManagementMVC.MvcApplication.Application_Start|Web Application Started
+20230804-102459|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s
+20230804-102459|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Value cannot be null.
+Parameter name: s

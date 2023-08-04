@@ -1,0 +1,5 @@
+20230803-145435|Info|AgencyManagementMVC.MvcApplication.Application_Start|Web Application Started
+20230803-145625|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 A task was canceled.
+20230803-145648|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 1 of 2 A task was canceled.
+20230803-145805|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 A task was canceled.
+20230803-145828|Debug|AgencyManagementCore.Components.RestAccess.Authorization.Execute|Failed to get token with total attempt 2 of 2 A task was canceled.

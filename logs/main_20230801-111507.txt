@@ -1,0 +1,2 @@
+20230801-111507|Info|AgencyManagementMVC.MvcApplication.Application_Start|Web Application Started
+20230801-111525|Error|AgencyManagementMVC.Controllers.HomeController.GetFolders|Failed to save settings: Login failed for user 'otcs'.
